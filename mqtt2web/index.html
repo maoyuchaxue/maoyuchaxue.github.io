@@ -1,0 +1,47 @@
+<html>
+    <head>
+        <title>MQTT</title>
+        <meta charset="gbk"/>
+        <script src="https://cdn.jsdelivr.net/npm/vue@2.5.21/dist/vue.js"></script>
+        <script src="/mqtt2web/javascripts/browserMQTT.js"></script>
+        <link href="/mqtt2web/lib/css/vendor/bootstrap.min.css" rel="stylesheet">
+        <link href="/mqtt2web/lib/css/flat-ui.css" rel="stylesheet">    
+        <link rel="stylesheet" href="/mqtt2web/stylesheets/style.css"/>
+    </head>
+
+    <body>
+        <div id="root">
+            <div id="config-box" class="flex-with-title">
+                <div id="config-title" class="flex-title">服务器设置{{title}}</div>
+                <div id="config-list" class="flex-remains">
+                    <div id="text-group" class="control-group">
+                        <input type="text" value id="server-input" v-model="server" placeholder="server ip"/>
+                        <input type="text" value id="port-input" v-model="port" placeholder="port"/>
+                        <input type="text" value id="topic-input" v-model="topic" placeholder="topic"/>
+                        <input type="text" value id="message-input" v-model="message" placeholder="message"/>
+                    </div>
+                    <div id="button-group" class="control-group">
+                        <div class="btn btn-large btn-primary" v-on:click="connect">连接服务器</div>
+                        <div class="btn btn-large btn-primary" v-on:click="subscribe">订阅消息</div>
+                        <div class="btn btn-large btn-primary" v-on:click="publish">发布消息</div>
+                    </div>
+                </div>
+            </div>
+            <div id="msg-box" class="flex-with-title">
+                <span id="msg-title" class="flex-title">接受消息</span>
+               
+                <div id="msg-list" class="flex-remains">
+                    <div v-for="msg in msgs" class="message" v-on:mouseup.alt.exact="copyToClipboard()">{{msg}}</div>
+                </div>
+            </div>
+        </div>
+        <script src="/mqtt2web/lib/scripts/jquery-3.3.1.min.js"></script>
+        <script src="/mqtt2web/lib/scripts/popper.min.js"></script>
+        <script src="/mqtt2web/lib/scripts/flat-ui.js"></script>
+        <script src="/mqtt2web/javascripts/socket.io.js"></script>
+        <script src="/mqtt2web/javascripts/index.js"></script>
+        <script>
+            index();
+        </script>
+    </body>
+</html>
