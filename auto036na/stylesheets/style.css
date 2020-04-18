@@ -1,0 +1,135 @@
+
+#root {
+    display: -webkit-flex;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    width: 100%;
+}
+
+
+.flex-title {
+    width: auto;
+    flex-grow: 0;
+    padding: 8px;
+    padding-left: 14px;
+    background: #48c9b0;
+    color: #ECF0F1;
+    font-weight: bold;
+}
+
+.flex-with-title {
+    flex-grow: 1;
+    display: -webkit-flex;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.flex-remains {
+    flex-grow: 1;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+#input-area-inner {
+    display: flex;
+    display: -webkit-flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.matrix {
+    display: -webkit-flex;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+
+}
+
+.matline {
+    display: -webkit-flex;
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+}
+
+.mat-cell {
+    border-radius: 0;
+    padding: 20px;
+}
+
+.invalid-mat-cell {
+    background-color: #e84118;
+}
+
+.invalid-input-mat-cell {
+    background-color: #e84118;
+}
+
+.input-mat-cell {
+    padding: 0px;
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    text-transform: lowercase;
+}
+
+textarea {
+    text-transform: lowercase;
+}
+
+#mapping-inner {
+    display: flex;
+    display: -webkit-flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.mapping {
+    display: flex;
+    display: -webkit-flex;
+
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.mapping-key, .mapping-value {
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    line-height: 40px;
+    vertical-align: middle;
+}
+
+.mapping-key {
+    background-color: #718093;
+    font-weight: bold;
+}
+
+#cipher-inner {
+    display: flex;
+    display: -webkit-flex;
+
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.sub-titled-area {
+    width: 40%;
+}
+
+.cipher-decipher-trigger {
+    display: flex;
+    display: -webkit-flex;
+    
+    flex-direction: column;
+    justify-content: center;
+}
+
+textarea {
+    height: 150px;
+    width: 100%;
+}

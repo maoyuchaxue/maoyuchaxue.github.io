@@ -1,0 +1,82 @@
+<html>
+    <head>
+        <title>Auto 036NA tool</title>
+        <script src="https://cdn.jsdelivr.net/npm/vue@2.5.21/dist/vue.js"></script>
+        <script src="./javascripts/036na.js"></script>
+        <link href="../lib/css/vendor/bootstrap.min.css" rel="stylesheet">
+        <link href="../lib/css/flat-ui.css" rel="stylesheet">    
+        <link rel="stylesheet" href="./stylesheets/style.css"/>
+    </head>
+
+    <body>
+        <div id="root">
+            <div id="matrix-input-area" class="flex-with-title">
+                <div id="input-area-title" class="flex-title">矩阵设置区</div>
+                <div id="input-area-inner" class="flex-remains">
+                    <div id="left-matrix" class="matrix">
+                        <div v-for="(matrow, row) in lmat" class="matline">
+                            <div v-for="(check, col) in matrow">
+                                <span class="mat-cell checked btn btn-info" v-if="check" v-bind:class="{'invalid-mat-cell': !islmatvalid}" v-on:click="setLMatCheck(row, col, 0)"> </span>
+                                <span class="mat-cell unchecked btn btn-inverse" v-else v-on:click="setLMatCheck(row, col, 1)"> </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="key-matrix" class="matrix">
+                        <div v-for="(matrow, row) in kmat" class="matline">
+                            <input v-for="(val, col) in matrow" class="input-mat-cell" v-bind:class="{'invalid-input-mat-cell': !iskmatcellvalid[row][col]}" v-model="kmat[row][col]" maxlength="1"/>
+                        </div>
+                    </div>
+                    <div id="right-matrix" class="matrix">
+                        <div v-for="(matrow, row) in rmat" class="matline">
+                            <div v-for="(check, col) in matrow">
+                                <span class="mat-cell checked btn btn-primary" v-if="check" v-bind:class="{'invalid-mat-cell': !isrmatvalid}" v-on:click="setRMatCheck(row, col, 0)"> </span>
+                                <span class="mat-cell unchecked btn btn-inverse" v-else v-on:click="setRMatCheck(row, col, 1)"> </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="mapping-area" class="flex-with-title">
+                <span id="mapping-title" class="flex-title">对应映射</span>
+                <div id="mapping-inner" class="flex-remains">
+                    <div v-for="(value, key) in maps" class="mapping">
+                        <div class="mapping-key">{{key}}</div>
+                        <div class="mapping-value">{{value}}</div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="cipher-area" class="flex-with-title">
+                <span id="cipher-title" class="flex-title">明文密文</span>
+                
+                <div id="cipher-inner" class="flex-remains">
+                    <div class="sub-titled-area">
+                        <div class="sub-title">明文</div>
+                        <textarea readonly class="sub-remains plain-text"  v-if="deciphering" v-model="computedplaintext"></textarea>
+                        <textarea class="sub-remains plain-text" v-model="plaintext" v-else></textarea>
+                    </div>
+                    <div class="cipher-decipher-trigger">
+                        <span class="cipher-button btn btn-lg btn-primary" v-if="deciphering" v-on:click="setDeciphering(false)">解密中</span>
+                        <span class="decipher-button btn btn-lg btn-danger not-triggering" v-else v-on:click="setDeciphering(true)">加密中</span>
+                    </div>
+                    <div class="sub-titled-area">
+                        <div class="sub-title">密文</div>
+                        <textarea class="sub-remains cipher-text" v-model="ciphertext" v-if="deciphering"> </textarea>
+                        <textarea readonly class="sub-remains plain-text"  v-else v-model="computedciphertext"></textarea>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+        <script src="../lib/scripts/jquery-3.3.1.min.js"></script>
+        <script src="../lib/scripts/popper.min.js"></script>
+        <script src="../lib/scripts/flat-ui.js"></script>
+        <script src="../lib/scripts/socket.io.js"></script>
+        <script src="./javascripts/index.js"></script>
+        <script>
+            index();
+        </script>
+    </body>
+</html>
