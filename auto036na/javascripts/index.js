@@ -1,7 +1,7 @@
 var data = {
     lmat: [[0,1,0,0,0,0], [0,0,0,0,0,1], [1,0,0,0,0,0], [0,0,0,1,0,0], [0,0,0,0,1,0], [0,0,1,0,0,0]],
     rmat: [[0,0,0,0,1,0], [0,0,1,0,0,0], [0,0,0,0,0,1], [0,1,0,0,0,0], [1,0,0,0,0,0], [0,0,0,1,0,0]],
-    kmat: [["1", "2", "3", "4", "5", "6"], ["7", "8", "9", "0", "a", "b"], ["c", "d", "e", "f", "g", "h"], ["i", "j", "k", "l", "m", "n"], ["o", "p", "q", "r", "s", "t"], ["u", "v", "w", "x", "y", "z"]],
+    kmatraw: [["1", "2", "3", "4", "5", "6"], ["7", "8", "9", "0", "a", "b"], ["c", "d", "e", "f", "g", "h"], ["i", "j", "k", "l", "m", "n"], ["o", "p", "q", "r", "s", "t"], ["u", "v", "w", "x", "y", "z"]],
     deciphering: true,
     ciphertext: "UO CSG ISF2 6STDUT4 JKSD Q3UQ CSG 3UF2 W22K 1MF2K UNN Q32 K252OOUTC QSSNO QS OG55224 M6 CSG 6MK4 CSGTO2N6 OQG5J UK4 UQ U 5SIRN2Q2 NSOO Q32T2 MO U 4MOQT2OO OCOQ2I Q3UQ IUC W2 GQMNME24 HSD2F2T 4G2 QS O25GTMQC TMOJ SGT QTUKOIMOOMSKO IGOQ W2 NMIMQ24",
     plaintext: ""
@@ -43,6 +43,16 @@ index = function() {
         el: '#root',
         data: data,
         computed: {
+            kmat: function () {
+                var kmat = [];
+                for (var i = 0; i < 6; i++) {
+                    kmat[i] = [];
+                    for (var j = 0; j < 6; j++) {
+                        kmat[i][j] = this.kmatraw[i][j].toLowerCase();
+                    }
+                }
+                return kmat;
+            },
             maps: function () {
                 if (this.isvalid) {
                     return map_036na(this.lmat, this.kmat, this.rmat);

@@ -22,8 +22,8 @@
                         </div>
                     </div>
                     <div id="key-matrix" class="matrix">
-                        <div v-for="(matrow, row) in kmat" class="matline">
-                            <input v-for="(val, col) in matrow" class="input-mat-cell" v-bind:class="{'invalid-input-mat-cell': !iskmatcellvalid[row][col]}" v-model="kmat[row][col]" maxlength="1"/>
+                        <div v-for="(matrow, row) in kmatraw" class="matline">
+                            <input v-for="(val, col) in matrow" class="input-mat-cell" v-bind:class="{'invalid-input-mat-cell': !iskmatcellvalid[row][col]}" v-model="kmatraw[row][col]" maxlength="1"/>
                         </div>
                     </div>
                     <div id="right-matrix" class="matrix">
