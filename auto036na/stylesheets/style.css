@@ -33,6 +33,21 @@
     margin-bottom: 10px;
 }
 
+.matrix-with-side-buttons {
+    display: flex;
+    display: -webkit-flex;
+    flex-direction: row;
+    justify-content: start;
+}
+
+.side-buttons {
+    display: flex;
+    display: -webkit-flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    padding-left: 5px;
+}
+
 #input-area-inner {
     display: flex;
     display: -webkit-flex;

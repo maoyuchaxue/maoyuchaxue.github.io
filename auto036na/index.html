@@ -13,25 +13,56 @@
             <div id="matrix-input-area" class="flex-with-title">
                 <div id="input-area-title" class="flex-title">矩阵设置区</div>
                 <div id="input-area-inner" class="flex-remains">
-                    <div id="left-matrix" class="matrix">
-                        <div v-for="(matrow, row) in lmat" class="matline">
-                            <div v-for="(check, col) in matrow">
-                                <span class="mat-cell checked btn btn-info" v-if="check" v-bind:class="{'invalid-mat-cell': !islmatvalid}" v-on:click="setLMatCheck(row, col, 0)"> </span>
-                                <span class="mat-cell unchecked btn btn-inverse" v-else v-on:click="setLMatCheck(row, col, 1)"> </span>
+                    <div class="matrix-with-side-buttons">
+                        <div id="left-matrix" class="matrix">
+                            <div v-for="(matrow, row) in lmat" class="matline">
+                                <div v-for="(check, col) in matrow">
+                                    <span class="mat-cell checked btn btn-info" v-if="check" v-bind:class="{'invalid-mat-cell': !islmatvalid, 'disabled': is_lmat_unknown}" v-on:click="setLMatCheck(row, col, 0)"> </span>
+                                    <span class="mat-cell unchecked btn btn-inverse" v-else v-bind:class="{'disabled': is_lmat_unknown}" v-on:click="setLMatCheck(row, col, 1)"> </span>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div id="key-matrix" class="matrix">
-                        <div v-for="(matrow, row) in kmatraw" class="matline">
-                            <input v-for="(val, col) in matrow" class="input-mat-cell" v-bind:class="{'invalid-input-mat-cell': !iskmatcellvalid[row][col]}" v-model="kmatraw[row][col]" maxlength="1"/>
+                    
+                        <div class="side-buttons">
+                            <span class="side-button btn btn-info" v-if="is_lmat_unknown" v-on:click="setLMatUnknown(false)"> 存疑 </span>
+                            <span class="side-button btn btn-primary" v-else v-on:click="setLMatUnknown(true)"> 存疑 </span>
+
+                            <span class="side-button btn btn-primary" v-on:click="clearLMat(true)">清空</span>
                         </div>
                     </div>
-                    <div id="right-matrix" class="matrix">
-                        <div v-for="(matrow, row) in rmat" class="matline">
-                            <div v-for="(check, col) in matrow">
-                                <span class="mat-cell checked btn btn-primary" v-if="check" v-bind:class="{'invalid-mat-cell': !isrmatvalid}" v-on:click="setRMatCheck(row, col, 0)"> </span>
-                                <span class="mat-cell unchecked btn btn-inverse" v-else v-on:click="setRMatCheck(row, col, 1)"> </span>
+                    
+                    <div class="matrix-with-side-buttons">
+                        <div id="key-matrix" class="matrix">
+                            <div v-for="(matrow, row) in kmatraw" class="matline">
+                                <input v-for="(val, col) in matrow" class="input-mat-cell" v-bind:class="{'invalid-input-mat-cell': !iskmatcellvalid[row][col]}" v-model="kmatraw[row][col]" maxlength="1"/>
                             </div>
+                        </div>
+                        
+                        <div class="side-buttons">
+                            <span class="side-button btn btn-primary" v-on:click="setKMat('_')"> _ </span>
+
+                            <span class="side-button btn btn-primary" v-on:click="setKMat('T')"> T </span>
+
+                            <span class="side-button btn btn-primary disabled" v-on:click="setKMat('X')"> X </span>
+                        </div>
+                    </div>
+                    
+                    <div class="matrix-with-side-buttons">
+                        <div id="right-matrix" class="matrix">
+                            <div v-for="(matrow, row) in rmat" class="matline">
+                                <div v-for="(check, col) in matrow">
+                                    <span class="mat-cell checked btn btn-primary" v-if="check" v-bind:class="{'invalid-mat-cell': !isrmatvalid, 'disabled': is_rmat_unknown}" v-on:click="setRMatCheck(row, col, 0)"> </span>
+                                    <span class="mat-cell unchecked btn btn-inverse" v-else v-bind:class="{'disabled': is_rmat_unknown}" v-on:click="setRMatCheck(row, col, 1)"> </span>
+                                </div>
+                            </div>
+                            
+                        </div>
+                        
+                        <div class="side-buttons">
+                            <span class="side-button btn btn-info" v-if="is_rmat_unknown" v-on:click="setRMatUnknown(false)"> 存疑 </span>
+                            <span class="side-button btn btn-primary" v-else v-on:click="setRMatUnknown(true)"> 存疑 </span>
+
+                            <span class="side-button btn btn-primary" v-on:click="clearRMat(true)">清空</span>
                         </div>
                     </div>
                 </div>
