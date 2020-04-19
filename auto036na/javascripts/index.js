@@ -1,10 +1,10 @@
 var data = {
     lmat: [[0,1,0,0,0,0], [0,0,0,0,0,1], [1,0,0,0,0,0], [0,0,0,1,0,0], [0,0,0,0,1,0], [0,0,1,0,0,0]],
     rmat: [[0,0,0,0,1,0], [0,0,1,0,0,0], [0,0,0,0,0,1], [0,1,0,0,0,0], [1,0,0,0,0,0], [0,0,0,1,0,0]],
-    kmatraw: copy_matrix(basic_matrix),
+    kmat_raw: copy_matrix(basic_matrix),
     deciphering: true,
-    ciphertext: "UO CSG ISF2 6STDUT4 JKSD Q3UQ CSG 3UF2 W22K 1MF2K UNN Q32 K252OOUTC QSSNO QS OG55224 M6 CSG 6MK4 CSGTO2N6 OQG5J UK4 UQ U 5SIRN2Q2 NSOO Q32T2 MO U 4MOQT2OO OCOQ2I Q3UQ IUC W2 GQMNME24 HSD2F2T 4G2 QS O25GTMQC TMOJ SGT QTUKOIMOOMSKO IGOQ W2 NMIMQ24",
-    plaintext: "",
+    cipher_text: "UO CSG ISF2 6STDUT4 JKSD Q3UQ CSG 3UF2 W22K 1MF2K UNN Q32 K252OOUTC QSSNO QS OG55224 M6 CSG 6MK4 CSGTO2N6 OQG5J UK4 UQ U 5SIRN2Q2 NSOO Q32T2 MO U 4MOQT2OO OCOQ2I Q3UQ IUC W2 GQMNME24 HSD2F2T 4G2 QS O25GTMQC TMOJ SGT QTUKOIMOOMSKO IGOQ W2 NMIMQ24",
+    plain_text: "",
     is_lmat_unknown: false,
     is_rmat_unknown: false
 }
@@ -46,16 +46,16 @@ function set_deciphering(deciphering) {
 function set_kmat(transform) {
     switch (transform) {
         case "_":
-            data.kmatraw = copy_matrix(basic_matrix);
+            data.kmat_raw = copy_matrix(basic_matrix);
             break;
         case "T":
-            tmp_mat = copy_matrix(data.kmatraw);
+            tmp_mat = copy_matrix(data.kmat_raw);
             for (var i = 0; i < 6; i++) {
                 for (var j = 0; j < 6; j++) {
-                    tmp_mat[i][j] = data.kmatraw[j][i];
+                    tmp_mat[i][j] = data.kmat_raw[j][i];
                 }
             }
-            data.kmatraw = tmp_mat;
+            data.kmat_raw = tmp_mat;
             break;
         case "X":
             // todo
@@ -85,13 +85,13 @@ index = function() {
                 for (var i = 0; i < 6; i++) {
                     kmat[i] = [];
                     for (var j = 0; j < 6; j++) {
-                        kmat[i][j] = this.kmatraw[i][j].toLowerCase();
+                        kmat[i][j] = this.kmat_raw[i][j].toLowerCase();
                     }
                 }
                 return kmat;
             },
             maps: function () {
-                if (this.isvalid && !this.is_lmat_unknown && !this.is_rmat_unknown) {
+                if (this.is_valid && !this.is_lmat_unknown && !this.is_rmat_unknown) {
                     return map_036na(this.lmat, this.kmat, this.rmat);
                 }
 
@@ -101,8 +101,8 @@ index = function() {
                 }
                 return default_bad_map;
             },
-            computedplaintext: function () {
-                if (this.isvalid) {
+            computed_plain_text: function () {
+                if (this.is_valid) {
                     if (this.is_both_unknown) {
                         return "cannot solve when both substitution matrixs are unknown"
                     } else {
@@ -112,7 +112,7 @@ index = function() {
                                 lmat = all_matrixs[m];
                                 map = map_036na(lmat, this.kmat, this.rmat);
                                 
-                                plain_texts += decipher_036na(map, this.ciphertext) + "\r\n"; 
+                                plain_texts += decipher_036na(map, this.cipher_text) + "\r\n"; 
                             }
                             return plain_texts;
 
@@ -122,21 +122,21 @@ index = function() {
                                 rmat = all_matrixs[m];
                                 map = map_036na(this.lmat, this.kmat, rmat);
                                 
-                                plain_texts += decipher_036na(map, this.ciphertext) + "\r\n"; 
+                                plain_texts += decipher_036na(map, this.cipher_text) + "\r\n"; 
                             }
                             return plain_texts;
 
                         } else {
 
-                            return decipher_036na(this.maps, this.ciphertext);
+                            return decipher_036na(this.maps, this.cipher_text);
                         }
                     }
                 } else {
                     return "invalid 036na"
                 }
             },
-            computedciphertext: function () {
-                if (this.isvalid) {
+            computed_cipher_text: function () {
+                if (this.is_valid) {
                     if (this.is_both_unknown) {
                         return "cannot solve when both substitution matrixs are unknown"
                     } else {
@@ -146,7 +146,7 @@ index = function() {
                                 lmat = all_matrixs[m];
                                 map = map_036na(lmat, this.kmat, this.rmat);
                                 
-                                plain_texts += cipher_036na(map, this.plaintext); + "\r\n"; 
+                                plain_texts += cipher_036na(map, this.plain_text); + "\r\n"; 
                             }
                             return plain_texts;
 
@@ -156,25 +156,25 @@ index = function() {
                                 rmat = all_matrixs[m];
                                 map = map_036na(this.lmat, this.kmat, rmat);
                                 
-                                plain_texts += cipher_036na(map, this.plaintext) + "\r\n"; 
+                                plain_texts += cipher_036na(map, this.plain_text) + "\r\n"; 
                             }
                             return plain_texts;
 
                         } else {
-                            return cipher_036na(this.maps, this.plaintext);
+                            return cipher_036na(this.maps, this.plain_text);
                         }
                     }
                 } else {
                     return "invalid 036na"
                 }
             },
-            islmatvalid: function () {
+            is_lmat_valid: function () {
                 return this.is_lmat_unknown || check_bin_mat(this.lmat);
             },
-            isrmatvalid: function () {
+            is_rmat_valid: function () {
                 return this.is_rmat_unknown ||check_bin_mat(this.rmat);
             },
-            iskmatvalid: function () {
+            is_kmat_valid: function () {
                 var char_set = new Set();
                 for (var i = 0; i < 6; i++) {
                     for (var j = 0; j < 6; j++) {
@@ -189,7 +189,7 @@ index = function() {
                 }
                 return true;
             },
-            iskmatcellvalid: function () {
+            is_kmat_cell_valid: function () {
                 valid_arr = [];
                 for (var i = 0; i < 6; i++) {
                     valid_arr[i] = [];
@@ -224,8 +224,8 @@ index = function() {
 
                 return valid_arr;
             },
-            isvalid: function() {
-                return this.islmatvalid && this.isrmatvalid && this.iskmatvalid;
+            is_valid: function() {
+                return this.is_lmat_valid && this.is_rmat_valid && this.is_kmat_valid;
             },
             is_both_unknown: function() {
                 return this.is_lmat_unknown && this.is_rmat_unknown;
