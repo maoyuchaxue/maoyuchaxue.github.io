@@ -58,7 +58,7 @@ function set_kmat(transform) {
             data.kmat_raw = tmp_mat;
             break;
         case "X":
-            // todo
+            data.kmat_raw = copy_matrix(nax_matrix);
     }
 }
 
